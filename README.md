@@ -1,4 +1,4 @@
-# presents
+# Presentations
 
 All Public presentations provided by Pratik Bhatt or Sangyaa Consulting
 
