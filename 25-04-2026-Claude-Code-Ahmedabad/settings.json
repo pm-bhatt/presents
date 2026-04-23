@@ -1,0 +1,201 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__codegraph__codegraph_search",
+      "mcp__codegraph__codegraph_context",
+      "mcp__codegraph__codegraph_callers",
+      "mcp__codegraph__codegraph_callees",
+      "mcp__codegraph__codegraph_impact",
+      "mcp__codegraph__codegraph_node",
+      "mcp__codegraph__codegraph_status",
+
+      "WebSearch",
+
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(tree *)",
+      "Bash(diff *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(jq *)",
+
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(git show*)",
+      "Bash(git remote -v*)",
+      "Bash(git stash list*)",
+      "Bash(git tag*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git pull*)",
+      "Bash(git fetch*)",
+      "Bash(git merge*)",
+      "Bash(git checkout*)",
+      "Bash(git rebase*)",
+      "Bash(git cherry-pick*)",
+      "Bash(git reset*)",
+      "Bash(git clone*)",
+
+      "Bash(gcloud config *)",
+      "Bash(gcloud projects list*)",
+      "Bash(gcloud projects describe*)",
+      "Bash(gcloud run services list*)",
+      "Bash(gcloud run services describe*)",
+      "Bash(gcloud run revisions list*)",
+      "Bash(gcloud auth list*)",
+      "Bash(gcloud iam *list*)",
+      "Bash(gcloud logging read*)",
+      "Bash(gcloud secrets list*)",
+      "Bash(gcloud secrets versions list*)",
+      "Bash(gcloud firestore *list*)",
+      "Bash(gcloud services list*)",
+      "Bash(gcloud compute regions list*)",
+
+      "Bash(terraform fmt*)",
+      "Bash(terraform validate*)",
+      "Bash(terraform plan*)",
+      "Bash(terraform show*)",
+      "Bash(terraform state list*)",
+      "Bash(terraform state show*)",
+      "Bash(terraform output*)",
+      "Bash(terraform providers*)",
+      "Bash(terraform version*)",
+      "Bash(terraform workspace list*)",
+
+      "Bash(node --version*)",
+      "Bash(node -e *)",
+      "Bash(npm list*)",
+      "Bash(npm outdated*)",
+      "Bash(npm audit*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run test*)",
+      "Bash(npm run build*)",
+      "Bash(npx tsc --noEmit*)",
+
+      "Bash(python --version*)",
+      "Bash(python3 --version*)",
+      "Bash(python -c *)",
+      "Bash(python3 -c *)",
+      "Bash(pip list*)",
+      "Bash(pip show*)",
+
+      "Bash(curl -s *)",
+      "Bash(curl --silent *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(rm -rf /)",
+      "Bash(sudo rm *)",
+      "Bash(sudo dd *)",
+      "Bash(sudo mkfs*)",
+      "Bash(sudo chmod *)",
+      "Bash(sudo chown *)",
+
+      "Bash(chmod 777 *)",
+      "Bash(chmod -R 777 *)",
+      "Bash(chmod a+rwx *)",
+      "Bash(chown -R *)",
+
+      "Bash(dd if=* of=/dev/*)",
+      "Bash(mkfs.*)",
+      "Bash(mkfs *)",
+
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(curl * | zsh)",
+      "Bash(wget * | sh)",
+      "Bash(wget * | bash)",
+      "Bash(wget -O- * | sh)",
+
+      "Bash(:(){ :|:& };:)",
+
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git push --force-with-lease *main)",
+      "Bash(git push --force-with-lease *master)",
+
+      "Bash(terraform destroy -auto-approve*)",
+      "Bash(terraform apply -auto-approve*)",
+      "Bash(kubectl delete namespace*)",
+      "Bash(gcloud * delete --quiet*)",
+      "Bash(aws * --force*)",
+
+      "Bash(docker system prune -a --volumes*)",
+      "Bash(docker volume prune --force*)",
+
+      "Bash(npm publish*)",
+      "Bash(pip install * --break-system-packages)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "codegraph mark-dirty",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "codegraph sync-if-dirty"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "everything-claude-code@everything-claude-code": true,
+    "ralph-loop@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "caveman@caveman": true,
+    "andrej-karpathy-skills@karpathy-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "everything-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "affaan-m/everything-claude-code"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  }
+}
