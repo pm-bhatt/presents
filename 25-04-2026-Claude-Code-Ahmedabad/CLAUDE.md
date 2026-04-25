@@ -141,6 +141,7 @@ When multiple skills or agents could fire for the same task, these win. Do not i
 | `codegraph_impact`     | Blast radius before editing a symbol            |
 | `codegraph_node`       | Symbol details + source                         |
 
+The first command you should be using is codegraph init to update the codegraph metadata.
 **If `.codegraph/` missing:** only offer to run `codegraph init -i` when the repo has >50 source files, the current task is exploration-heavy, and the user hasn't already declined this session.
 
 ## 11. Web fetching
